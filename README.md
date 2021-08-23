@@ -1,3 +1,5 @@
-# python language
+# python
 
-- python practice
+- 문법공부
+- 자료구조
+- 알고리즘
