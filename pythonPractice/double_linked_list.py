@@ -24,6 +24,34 @@ class DoubleLinkedList:
             newNode.prev = node
             self.tail = newNode
 
+    def insert_before(self,data,before_data):
+        if self.head == None:
+            self.insert(data)
+        if self.head.data == before_data:
+            node = self.head
+            new = Node(data)
+            new.next = node
+            node.prev = new
+            self.head = new
+        else:
+            node =self.head
+            while node:
+                if node.next:
+                    if node.next.data == before_data:
+                        temp = node.next
+                        new = Node(data)
+                        node.next = new
+                        new.prev = node
+                        new.next = temp
+                        temp.prev = new
+                        print('삽입완료.')
+                        return
+                node = node.next
+            print('before_data가 존재하지않습니다.')
+
+                    
+                    
+
     def delete(self,data):
         if self.head == None:
             print('해당 데이터가 없습니다.')
@@ -68,10 +96,13 @@ class DoubleLinkedList:
             print(node.data)
             node = node.prev
 
-double_linked_list = DoubleLinkedList()
+double_linked_list = DoubleLinkedList(3)
 for i in range(15):
     double_linked_list.insert(i)
 double_linked_list.delete(11)
 double_linked_list.delete(14)
 double_linked_list.print_list()
+double_linked_list.insert_before(152,0)
+double_linked_list.print_list()
+double_linked_list.print_list_reverse()
 
