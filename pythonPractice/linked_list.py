@@ -25,13 +25,27 @@ class NodeLinkedList:
                 node = node.next
             node.next = Node(data)
 
+    #원하는 인덱스를 찾아서 해당 위치에 노드를 추가하는 함수
+    def insert(self,index,data):
+        node = self.head
+        for i in range(index-1):
+            node = node.next
+        temp = node.next
+        node.next = Node(data)
+        node = node.next
+        node.next = temp
+
+
     #찾는 데이터를 삭제하는 함수
     def remove(self,data):
+        #이 링크드리스트의 헤드가 존재하는지 확인
         if self.head == None:
             print('해당 값을 가진 노드가 없습니다.')
+        #헤드의 데이터가 같을경우
         if self.head.data == data:
             temp = self.head
             self.head = self.head.next
+            #del 해줌으로써 저장공간의 효율성을 높일수있다
             del temp
         else:
             node = self.head
@@ -43,6 +57,7 @@ class NodeLinkedList:
                     return
                 else:
                     node = node.next
+            print('해당 값을 가진 노드가 없습니다.')
 
     #원하는 data가 노드에 존재하는지 찾는 함수
     def find(self,data):
@@ -66,6 +81,8 @@ linkedList.print_node()
 for i in range(10):
     linkedList.add(i)
 linkedList.print_node()
-linkedList.remove(4)
+linkedList.remove(9)
 linkedList.print_node()
-print(linkedList.find(3))
+print(linkedList.find(12345))
+linkedList.insert(4,'wow')
+linkedList.print_node()
