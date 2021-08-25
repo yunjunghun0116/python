@@ -6,3 +6,6 @@
 # Leaf Node(Terminal Node) : Child Node가 하나도 없는 노드
 # Sibling : 동일한 Parent Node를 가진 노드
 # Depth : 트리의 노드가 가질수 있는 최대 Level
+
+#트리구조 : 노드와 Branch를 이용해서 사이클을 이루지 않도록 구성한데이터구조
+#이진트리형태의 구조 -> 탐색/검색 알고리즘 구현을 위해 주로 사용
