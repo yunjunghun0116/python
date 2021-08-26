@@ -11,6 +11,8 @@ def make_hash(key):
 #단순 해쉬테이블
 #ord : ASCII코드 반환
 def storage_data(data,value):
+    #입력받은 데이터(string 여기서는 이름에 해당)의 첫글자의 ASCII코드를 이용해
+    #해쉬화를 진행한 후, 해쉬테이블에 저장해준다.
     key = ord(data[0])
     hash_address = make_hash(key)
     hash_table[hash_address] = value
