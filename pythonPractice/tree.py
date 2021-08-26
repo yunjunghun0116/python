@@ -81,6 +81,8 @@ class BinaryTree:
             #LeafNode의 경우
             if currentNode.left == None and currentNode.right == None:
                 #currentNode가 parenNode의 왼쪽인지 오른쪽인지를 알기위해
+                if value == self.root.value:
+                    self.root = None
                 if currentNode.value < parentNode.value:
                     parentNode.left = None
                 else:
@@ -88,56 +90,66 @@ class BinaryTree:
             #ChildNode를 한개 갖고있는경우
             #ChildNode를 왼쪽에 갖고있는지 or 오른쪽에 갖고있는지
             elif currentNode.left != None and currentNode.right == None:
+                if value == self.root.value:
+                    self.root = currentNode.left
                 if currentNode.value < parentNode.value:
                     parentNode.left = currentNode.left
                 else:
                     parentNode.right = currentNode.left
             elif currentNode.left == None and currentNode.right != None:
+                if value == self.root.value:
+                    self.root = currentNode.right
                 if currentNode.value < parentNode.value:
                     parentNode.left = currentNode.right
                 else:
                     parentNode.right = currentNode.right
             #ChildNode를 두개 갖고있는경우
             else:
-                if currentNode.value < parentNode.value:
-                    temp = currentNode.right
-                    temp_parent = currentNode.right
-                    while temp.left:
-                        temp_parent = temp
-                        temp = temp.left
-                    if temp.right != None:
-                        temp_parent.left = temp.right
-                    else:
-                        temp_parent.left = None
-                    parentNode.left = temp
-                    temp.left = currentNode.left
-                    temp.right = currentNode.right
+                #temp는 삭제할 노드를 삭제했을때 빈자리를 채워줄
+                #삭제할노드중 큰값중 가장 작은값을 나타내는 노드
+                temp = currentNode.right
+                temp_parent = currentNode.right
+                while temp.left:
+                    temp_parent = temp
+                    temp = temp.left
+                if temp.right != None:
+                    temp_parent.left = temp.right
                 else:
-                    temp = currentNode.right
-                    temp_parent = currentNode.right
-                    while temp.left:
-                        temp_parent = temp
-                        temp = temp.left
-                    if temp.right != None:
-                        temp_parent.left = temp.right
-                    else:
-                        temp_parent.left = None
+                    temp_parent.left = None
+                temp.left = currentNode.left
+                temp.right = currentNode.right
+                if value == self.root.value:
+                    #currentNode,parentNode가 모두 최상단노드
+                    self.root = temp
+                elif currentNode.value < parentNode.value:
+                    parentNode.left = temp
+                else:
                     parentNode.right = temp
-                    temp.left = currentNode.left
-                    temp.right = currentNode.right
             print(value,'삭제 완료')
             del currentNode
 
-    def print_node(self):
-        data = list()
-        cnt = 0
+    #dfs를 이용한 노드출력방식
+    #왼쪽부터 체크하고, 가장 끝노드부터 체크,
+    #왼쪽 맨아래부터 차근차근 체크해가며 검사하는방식
+    data_list = []
+    def print_node(self,node):
+        if node.left:
+            self.print_node(node.left)
+        if node.right:
+            self.print_node(node.right)
+        self.data_list.append(node.value)
 
 
 
 
 rootNode = Node(8)
 my_tree = BinaryTree(rootNode)
-for i in range(15):
-    my_tree.insert(i)
+my_tree.insert(6)
+my_tree.insert(4)
+my_tree.insert(9)
+my_tree.insert(14)
+my_tree.insert(8.5)
 my_tree.search(17)
-my_tree.delete(11)
+my_tree.delete(8)
+my_tree.print_node(my_tree.root)
+print(my_tree.data_list)
