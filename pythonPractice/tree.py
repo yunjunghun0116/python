@@ -10,6 +10,9 @@
 #트리구조 : 노드와 Branch를 이용해서 사이클을 이루지 않도록 구성한데이터구조
 #이진트리형태의 구조 -> 탐색/검색 알고리즘 구현을 위해 주로 사용
 
+import queue
+import random
+
 class Node:
     def __init__(self,value):
         self.value = value
@@ -41,7 +44,7 @@ class BinaryTree:
         current_node = self.root
         while current_node:
             if value == current_node.value:
-                print('탐색완료')
+                print(value,'탐색완료')
                 return
             if value < current_node.value:
                 current_node = current_node.left
@@ -75,7 +78,7 @@ class BinaryTree:
                 parentNode = currentNode
                 currentNode = currentNode.right
         if find == False:
-            print(value,'가 존재하지않습니다.')
+            print(value,'가 존재하지않습니다')
             return
         else:
             #LeafNode의 경우
@@ -107,6 +110,9 @@ class BinaryTree:
             else:
                 #temp는 삭제할 노드를 삭제했을때 빈자리를 채워줄
                 #삭제할노드중 큰값중 가장 작은값을 나타내는 노드
+                
+                #temp : 삭제할 노드의 right 노드중 가장 작은값을 지닌 노드
+                #밑의 코드는 삭제할 노드를 삭제한 후에 삭제한 위치에 temp를 갖다 놓는과정
                 temp = currentNode.right
                 temp_parent = currentNode.right
                 while temp.left:
@@ -118,8 +124,9 @@ class BinaryTree:
                     temp_parent.left = None
                 temp.left = currentNode.left
                 temp.right = currentNode.right
+
+                #삭제할 노드가 root노드일경우
                 if value == self.root.value:
-                    #currentNode,parentNode가 모두 최상단노드
                     self.root = temp
                 elif currentNode.value < parentNode.value:
                     parentNode.left = temp
@@ -139,17 +146,50 @@ class BinaryTree:
             self.print_node(node.right)
         self.data_list.append(node.value)
 
+    #bfs를 이용한 노드출력방식
+    #최상단노드부터 하나하나 내려가면서 체크하는방식
+    def print_node_queue(self):
+        node_queue = queue.Queue()
+        node_queue.put(self.root)
+        while node_queue.qsize() != 0:
+            temp_node = node_queue.get()
+            self.data_list.append(temp_node.value)
+            if temp_node.left:
+                node_queue.put(temp_node.left)
+            if temp_node.right:
+                node_queue.put(temp_node.right)
 
 
-
-rootNode = Node(8)
+rootNode = Node(50)
 my_tree = BinaryTree(rootNode)
-my_tree.insert(6)
-my_tree.insert(4)
-my_tree.insert(9)
-my_tree.insert(14)
-my_tree.insert(8.5)
-my_tree.search(17)
-my_tree.delete(8)
-my_tree.print_node(my_tree.root)
+
+
+
+#Random한 값을 많이 집어넣음으로써 모든 기능이 제대로 진행되는지 테스트하는과정
+insert_nums = set()
+search_nums = set()
+delete_nums = set()
+#0~99중 15개의 랜덤숫자 선택해서 집어넣기
+while len(insert_nums) != 15:
+    insert_nums.add(random.randint(0,99))
+#고른 랜덤숫자15개를 이진트리에 삽입해주기
+for num in insert_nums:
+    my_tree.insert(num)
+
+while len(search_nums) != 15:
+    search_nums.add(random.randint(0,99))
+for num in search_nums:
+    my_tree.search(num)
+
+#set의 형태를 list형태로 변환하는방법
+# nums = list(nums)처럼 list(set타입의 자료) -> list타입으로 변환시켜준다.
+
+while len(delete_nums) != 15:
+    delete_nums.add(random.randint(0,99))
+for delete_num in delete_nums:
+    my_tree.delete(delete_num)
+
+my_tree.print_node_queue()
 print(my_tree.data_list)
+# my_tree.print_node(my_tree.root)
+# print(my_tree.data_list)
