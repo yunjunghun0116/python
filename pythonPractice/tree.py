@@ -50,6 +50,16 @@ class BinaryTree:
         print('탐색실패')
         return 
 
+    #LeafNode 삭제 ChildNode 1개인노드 삭제, 2개인노드삭제 총 3가지케이스 존재
+    #childNode가 2개일때가 문제가 되는데
+    #해결방법 1. 삭제할노드의 오른쪽자식중 가장작은값(가장 왼쪽에있는값)을 parendNode가 가리키도록하거나
+    #2.왼쪽자식중 가장큰값을 가리키도록 한다.
+    #둘다 방식은 똑같기때문에 오른쪽 자식중 가장 작은값을 가리키도록 할경우
+    # 1.가장 작은값을 위로 올려줘야하기때문에 삭제할 노드의 parent노드가 가리킬수있도록 함
+    # 2.해당 노드의 left는 삭제할노드의 left를 가리키도록함
+    # 3.해당 노드의 right또한 삭제할노드의 right를 가리키도록함
+    # 4.올려준 노드가 만약 right를 갖고있었으면 올려주기 이전의 parent노드가 올려준노드의 right를 가리키도록 하고
+    # 5.만약 올려준노드의 child가 하나도없으면 올려주기 이전의 parent노드의 left = None으로 해주면 된다.
     def delete(self,value):
         find = False
         currentNode = self.root
@@ -65,14 +75,64 @@ class BinaryTree:
                 parentNode = currentNode
                 currentNode = currentNode.right
         if find == False:
+            print(value,'가 존재하지않습니다.')
             return
         else:
-            print('Case별로 삭제')
-            #LeafNode 삭제 ChildNode 1개인노드 삭제, 2개인노드삭제 총 3가지케이스 존재
-            #childNode가 2개일때가 문제가 되는데
-            #해결방법 1. 삭제할노드의 오른쪽자식중 가장작은값(가장 왼쪽에있는값)을 parendNode가 가리키도록하거나
-            #2.왼쪽자식중 가장큰값을 가리키도록 한다.
+            #LeafNode의 경우
             if currentNode.left == None and currentNode.right == None:
+                #currentNode가 parenNode의 왼쪽인지 오른쪽인지를 알기위해
+                if currentNode.value < parentNode.value:
+                    parentNode.left = None
+                else:
+                    parentNode.right = None
+            #ChildNode를 한개 갖고있는경우
+            #ChildNode를 왼쪽에 갖고있는지 or 오른쪽에 갖고있는지
+            elif currentNode.left != None and currentNode.right == None:
+                if currentNode.value < parentNode.value:
+                    parentNode.left = currentNode.left
+                else:
+                    parentNode.right = currentNode.left
+            elif currentNode.left == None and currentNode.right != None:
+                if currentNode.value < parentNode.value:
+                    parentNode.left = currentNode.right
+                else:
+                    parentNode.right = currentNode.right
+            #ChildNode를 두개 갖고있는경우
+            else:
+                if currentNode.value < parentNode.value:
+                    temp = currentNode.right
+                    temp_parent = currentNode.right
+                    while temp.left:
+                        temp_parent = temp
+                        temp = temp.left
+                    if temp.right != None:
+                        temp_parent.left = temp.right
+                    else:
+                        temp_parent.left = None
+                    parentNode.left = temp
+                    temp.left = currentNode.left
+                    temp.right = currentNode.right
+                else:
+                    temp = currentNode.right
+                    temp_parent = currentNode.right
+                    while temp.left:
+                        temp_parent = temp
+                        temp = temp.left
+                    if temp.right != None:
+                        temp_parent.left = temp.right
+                    else:
+                        temp_parent.left = None
+                    parentNode.right = temp
+                    temp.left = currentNode.left
+                    temp.right = currentNode.right
+            print(value,'삭제 완료')
+            del currentNode
+
+    def print_node(self):
+        data = list()
+        cnt = 0
+
+
 
 
 rootNode = Node(8)
@@ -80,3 +140,4 @@ my_tree = BinaryTree(rootNode)
 for i in range(15):
     my_tree.insert(i)
 my_tree.search(17)
+my_tree.delete(11)
