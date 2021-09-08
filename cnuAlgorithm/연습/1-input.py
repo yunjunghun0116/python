@@ -10,8 +10,6 @@ def main():
     #해당 위치 출력
     print(input_arr[k-1]+input_arr[n-i])
 
-
-
 if __name__ == '__main__':
     main()
 
