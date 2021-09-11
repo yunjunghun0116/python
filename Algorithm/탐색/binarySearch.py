@@ -1,6 +1,7 @@
 import random
 
 # 이진탐색의 전제조건 : 모든 원소는 정렬되어있다
+# logn의 시간복잡도를 가지고있다
 
 data_list = [];
 
