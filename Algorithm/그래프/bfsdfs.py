@@ -31,6 +31,9 @@ def bfs(graph,start_val):
                 visited.append(graph[data][i])
         visited.append(start_val)
 
-
 bfs(graph,'a')
+
+def dfs(graph,start_val):
+    visited = []
+    
 
