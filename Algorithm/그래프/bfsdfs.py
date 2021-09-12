@@ -20,6 +20,7 @@ def bfs(graph,start_val):
     bfs_queue = queue.Queue()
     visited = []
     bfs_queue.put(start_val)
+    visited.append(start_val)
     while bfs_queue.qsize() != 0:
         data = bfs_queue.get()
         print(data)
@@ -29,11 +30,25 @@ def bfs(graph,start_val):
             else:
                 bfs_queue.put(graph[data][i])
                 visited.append(graph[data][i])
-        visited.append(start_val)
 
 bfs(graph,'a')
 
+print('------------')
+
 def dfs(graph,start_val):
     visited = []
+    stack = []
+    stack.append(start_val)
+    while len(stack) != 0:
+        data = stack.pop()
+        visited.append(data)
+        print(data)
+        for i in range(len(graph[data])):
+            if visited.__contains__(graph[data][i]):
+                continue
+            else:
+                stack.append(graph[data][i])
+        
+dfs(graph,'a')
     
 
