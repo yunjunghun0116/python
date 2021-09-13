@@ -13,7 +13,9 @@ def tsp():
 
     min_distance = float('inf')
     for i in itertools.permutations(points):
+        # 모든 순열의 배치를 해놓은 후에
         path = [src,*list(i),dst]
+        #모든 거리를 비교하면서 결국 최솟값만 min_distance에 저장이된다
         distance = 0
         for j in range(0,len(path)-1):
             distance += abs(path[j][0]-path[j+1][0])+abs(path[j][1]-path[j+1][1])
