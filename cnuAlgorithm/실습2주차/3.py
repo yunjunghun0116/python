@@ -1,7 +1,5 @@
 import sys
 
-
-
 def pyramid(n,size): # n : 4, size : 10
     if size == 1:
         return 1
