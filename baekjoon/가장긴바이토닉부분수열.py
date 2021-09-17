@@ -6,6 +6,7 @@ def main():
     up_dist = [1 for _ in range(size)]
     down_dist = [1 for _ in range(size)]
 
+    #증가하는 부분수열 길이
     for i in range(1,size):
         dist_max = up_dist[i]
         index = i-1
@@ -15,7 +16,7 @@ def main():
                     dist_max = up_dist[index]+up_dist[i]
             index -=1
         up_dist[i] = dist_max
-
+    #감소하는 부분수열 길이
     for i in range(size-2,-1,-1):
         dist_max = down_dist[i]
         index = i+1
@@ -26,6 +27,8 @@ def main():
             index +=1
         down_dist[i] = dist_max
     dist_max = 0
+
+    #증가하는부분수열[i]+감소하는부분수열[i] 를 하되 자기자신은 두번구해진거니까 -1 해주면 된다.
     for i in range(size):
         dist_max = max(dist_max,up_dist[i]+down_dist[i])
 
