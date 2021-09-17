@@ -17,3 +17,74 @@
 # 높이가 같으면 한쪽의 트리높이를 1 증가시켜주고 다른쪽의 트리를 해당 트리에 붙힌다. -> 자식노드에 추가되는것
 
 
+graph = {
+    'v':['A','B','C','D','E','F','G'],
+    'edge':[
+        #튜플의 형태로 저장
+        (7,'A','B'),
+        (5,'A','D'),
+        (7,'B','A'),
+        (9,'B','D'),
+        (8,'B','C'),
+        (7,'B','E'),
+        (8,'C','B'),
+        (5,'C','E'),
+        (5,'D','A'),
+        (9,'D','B'),
+        (7,'D','E'),
+        (6,'D','F'),
+        (7,'E','B'),
+        (5,'E','C'),
+        (7,'E','D'),
+        (8,'E','F'),
+        (9,'E','G'),
+        (6,'F','D'),
+        (8,'F','E'),
+        (11,'F','G'),
+        (9,'G','E'),
+        (11,'G','F'),
+    ],
+}
+parent = {}
+rank = {}
+
+def make_set(node):
+    parent[node] = node
+    rank[node] = 0
+
+def find_parent(x):
+    # parent를 찾음과 동시에 parent에 변화가 생길경우 수정을 바로 해줌
+    if parent[x] != x:
+        parent[x] = find_parent(parent[x])
+    return parent[x]
+
+def union(start,end):
+    root_start = find_parent(start)
+    root_end = find_parent(end)
+    if rank[root_start] > rank[root_end]:
+        parent[root_end] = root_start
+    elif rank[root_start] == rank[root_end]:
+        rank[root_start] += 1
+        parent[root_end] = root_start
+    else :
+        parent[root_start] = root_end
+
+def kruskal(graph):
+    mst = []
+    # 부분집합으로 만드는 과정
+    for node in graph['v']:
+        make_set(node)  
+    # 우선순위대로 정렬하는 과정
+    edges = graph['edge']
+    edges.sort()
+    # 간선 연결
+    for edge in edges:
+        weight,start,end = edge
+        if find_parent(start) != find_parent(end):
+            union(start,end)
+            mst.append(edge)
+
+    return mst
+
+print(kruskal(graph))
+print(rank)
