@@ -51,7 +51,7 @@ def main():
             for i in range(n):
                 if board[index][i] == 0:
                     continue
-                elif i ==start or i == index:
+                elif i ==start :
                     continue
                 elif visited[i] == 0:
                     if board[index][i] + value > result[i]:
@@ -62,7 +62,10 @@ def main():
             
         return result
 
-    dist_max = 0
+    if len(links) == 0:
+        dist_max = 0
+    else:
+        dist_max = links[0][0]
     for i in range(n):
         dist_max = max(dist_max,max(dfs(i)))
     print(sum(mst))
