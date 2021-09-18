@@ -1,5 +1,4 @@
 import sys
-import queue
 
 def main():
     n,k = map(int,sys.stdin.readline().split())
@@ -39,13 +38,14 @@ def main():
         board[start][end] = value
         board[end][start] = value
 
-    result = [0 for i in range(n)]
-    
-
+    #dfs 문제
     def dfs(start):
         stack = []
+        result = [0 for i in range(n)]
         visited = [0 for _ in range(n)]
         stack.append((0,start))
+        ds_max = 0
+
         while len(stack) != 0:
             value,index = stack.pop()
             for i in range(n):
@@ -57,19 +57,16 @@ def main():
                     if board[index][i] + value >= result[i]:
                         new_val = board[index][i] + value
                         result[i] =new_val
+                        ds_max = new_val
                         stack.append((new_val,i))
                         visited[i] = 1
             
-        return result
-
-    if len(links) == 0:
-        dist_max = 0
-    else:
-        dist_max = links[0][0]
+        return ds_max
+    dist_max = 0
     for i in range(n):
-        dist_max = max(dist_max,max(dfs(i)))
+        dist_max = max(dist_max,dfs(i))
     print(sum(mst))
-    print(dist_max)
+    print(int(dist_max))
 
     
 
