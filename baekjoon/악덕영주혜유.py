@@ -54,7 +54,7 @@ def main():
                 elif i ==start :
                     continue
                 elif visited[i] == 0:
-                    if board[index][i] + value > result[i]:
+                    if board[index][i] + value >= result[i]:
                         new_val = board[index][i] + value
                         result[i] =new_val
                         stack.append((new_val,i))
