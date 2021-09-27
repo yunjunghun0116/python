@@ -14,7 +14,7 @@ def main():
     
     for i in range(1,n+1):
         #정렬하는 방법
-        lst = sorted(users[i][:m],key = lambda x : ((len(x[0]), x[0])))
+        lst = sorted(users[i][:m],key = lambda x : (len(x[0]), x[0]))
         users[i] = lst
     
     
