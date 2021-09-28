@@ -1,27 +1,46 @@
 import sys
 
-def main():
-    size = int(sys.stdin.readline())
-    dp = [0 for _ in range(size+1)]
-    for i in range(1,size+1):
-        if i == 1:
-            dp[i] = 0
-        elif i == 2:
-            dp[i] = 1
-        elif i == 3:
-            dp[i] = 1
-        else:
-            if i%2 == 0 and i%3 == 0:
-                dp[i] = min(dp[i//2],dp[i//3],dp[i-1])+1
-            elif i%2 ==0:
-                dp[i] = min(dp[i//2],dp[i-1])+1
-            elif i%3 ==0:
-                dp[i] = min(dp[i//3],dp[i-1])+1
+def solution(dartResult):
+    result = []
+    current_idx = -1
+    data = list(map(str,dartResult))
+    if '\n' in data:
+        data.remove('\n')
+    start = 0
+    while start != len(data):
+        if data[start].isdigit():
+            if data[start] == '1':
+                current_idx+=1
+                if data[start+1] == '0':
+                    result.append(10)
+                    start+=1
+                else:
+                    result.append(int(data[start]))
             else:
-                dp[i] = dp[i-1]+1
+                current_idx+=1
+                result.append(int(data[start]))
+        else:
+            if data[start] == 'S':
+                result[current_idx] = result[current_idx]
+            elif data[start] == 'D':
+                result[current_idx] = result[current_idx]**2
+            elif data[start] == 'T':
+                result[current_idx] = result[current_idx]**3
+            elif data[start] == '*':
+                if current_idx == 0:
+                    result[current_idx] = result[current_idx] * 2
+                else:
+                    result[current_idx-1] = result[current_idx-1]* 2
+                    result[current_idx] = result[current_idx]* 2
+            else:
+                result[current_idx] = result[current_idx] * (-1)
+        start+=1
+    return sum(result)
 
-    print(dp[-1])
-
+def main():
+    input_data = sys.stdin.readline()
+    print(solution(input_data))
+        
     
 
 if __name__ == '__main__':
