@@ -3,6 +3,9 @@ import sys
 
 def calc_dart(input_string):
     # p = re.compile('(\d+)([a-zA-Z\)(\*|#)?')
+    # \d의 의미는 숫자를 의미.\D는 문자를 의미(한글 영문 공백 특수기호등)
+    # \w의 의미는 워드를 의미
+    # \s는 공백을 의미
     p = re.compile('(\d+)([a-zA-Z])([*#]?)')
     score_list = p.findall(input_string)
     result = []
