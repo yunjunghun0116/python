@@ -11,7 +11,7 @@ def find_cnt_0(results,size):
                 is_row_changed  = False
                 break
         if is_row_changed:
-            row_boards[i] = [results[i][j]-1 for j in range(size)]
+            row_boards[i] = [1-results[i][j] for j in range(size)]
             cnt += 1
     # 각 열마다 진행해줄거라서
     for i in range(size):
@@ -27,7 +27,7 @@ def find_cnt_0(results,size):
                 else:
                     cnt_else += 1
             if cnt_else > cnt_0:
-                cnt +=  cnt_0
+                cnt +=  1
                 for j in range(size):
                     if sub_col[j] == 0:
                         sub_col[j] = 1
@@ -53,7 +53,7 @@ def find_cnt_1(results,size):
                 is_row_changed  = False
                 break
         if is_row_changed:
-            row_boards[i] = [results[i][j]-1 for j in range(size)]
+            row_boards[i] = [1-results[i][j] for j in range(size)]
             cnt += 1
     # 각 열마다 진행해줄거라서
     for i in range(size):
@@ -64,12 +64,12 @@ def find_cnt_1(results,size):
         cnt_else = 0 
         while True:
             for j in range(size):
-                if sub_col[j]  == 0:
+                if sub_col[j]   == 0:
                     cnt_0 += 1
                 else:
                     cnt_else += 1
             if cnt_else > cnt_0:
-                cnt += cnt_0 
+                cnt += 1
                 for j in range(size):
                     if sub_col[j] == 0:
                         sub_col[j] = 1
