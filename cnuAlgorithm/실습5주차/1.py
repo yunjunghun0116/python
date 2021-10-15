@@ -2,8 +2,6 @@ import sys
 import collections
 def compareCollections(p,f):
     i = collections.Counter(p) - collections.Counter(f)
-    print(collections.Counter(p))
-    print(collections.Counter(f))
     return list(i.keys())
 
 def main():
