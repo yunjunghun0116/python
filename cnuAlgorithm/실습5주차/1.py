@@ -2,6 +2,7 @@ import sys
 import collections
 def compareCollections(p,f):
     i = collections.Counter(p) - collections.Counter(f)
+    print(i)
     # map의 형태로 저장되며 key : count 의 형식으로 저장되고,
     # key에 실질적인 이름이 저장되고, - 를 통하면 있는것들중에서는 사라지지만
     # 없는이름에 대해서는 진행되는것이 없다

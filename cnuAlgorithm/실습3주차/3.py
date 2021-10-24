@@ -5,8 +5,9 @@ def solve(s : str):
     #정규표현식으로써 (숫자,SDT세개의 문자중하나,* or # or 공백) 으로 구성된 문자열을
     #구분해서 해당부분만 score_list에 저장을 한 후에 result는 길이가 3이고, 값은 1을 갖고있는
     #상태로 초기화한다.
-    p = re.compile('(\d+)([SDT])([*|#]?)')
+    p = re.compile('(\d+)([SDT])([*#]?)')
     score_list = p.findall(s)
+    print('score_list:',score_list)
     result = [1 for _ in range(3)]
     # -1부터시작하는것은 options를 처리하기위함이다.
     current_index = -1

@@ -25,7 +25,6 @@ def is_anagram(s1,s2):
         j+=1
     return isAnagram
     
-    
 def main():
     #입력받은 문자열이 대/소문자구분안하기때문에 lower()이나
     m,n = map(str,sys.stdin.readline().lower().strip().split())

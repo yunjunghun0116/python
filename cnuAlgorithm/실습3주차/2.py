@@ -3,7 +3,7 @@ import sys
 def solve(s : str):
     #해당 문자열의 길이를 크기로 하는 2차원 배열을 구성하고 False를 준다.
     length = len(s)
-    table = [[False for _ in range(length)]for _ in range(length)]
+    table = [[False for j in range(length)]for i in range(length)]
     #먼저 이 함수는 만약 s[0]과 s[6]이 같으면 s[1]과 s[5]를 비교하고, 안쪽으로 가며 회문인지를
     #파악하는 함수이기때문에 결국 필요한것은 현재 체크하고있는 문자(열이 아닌 해당위치의 문자그자체)
     #가 회문인지 파악하는 함수이다.
@@ -24,7 +24,8 @@ def solve(s : str):
                 if s[j] == s[i+j] and table[j+1][i+j-1]:
                     table[j][i+j] = True
                     longest = s[j:i+j+1]
-
+    for i in range(length):
+        print(table[i])
     return longest
 
 def main():
