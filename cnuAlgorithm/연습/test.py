@@ -1,11 +1,14 @@
 import sys
-       
+import re
 
+def solve(input_str):
+    p = re.compile('^\d{2}.\d{2}.\d{2}')
+    num_list = p.findall(input_str)
+    print(num_list)
 def main():
-
-    str1 = 'abcdqwesdzxa'
-    str2 = sorted(str1)
-    print(' '.join(str2))
-   
+    input_str = sys.stdin.readline().strip()
+    print(solve(input_str))
+    
+    
 if __name__ == '__main__':
     main()

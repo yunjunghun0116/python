@@ -1,5 +1,6 @@
 import re
 
+
 def main():
     # 정규식은 대부분 db에 자주 쓰인다.
 
@@ -9,6 +10,7 @@ def main():
     
     # (\d+)([SDT])([*#]?) 숫자,SDT중 하나,*#일수도있고 없을수도있음
     # ?를 통해 있을수도없을수도있음을 알게해줌
+    # p = re.compile('^\d{2}.\d{2}.\d{2}')처럼 12.23.34 와같은부분만 찾을 수 있다
     p = re.compile('(\d+)([SDT])([*|#]?)')
     lists = p.findall('hahahaha123S*6D#8T')
     print(lists)
